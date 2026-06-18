@@ -1,10 +1,12 @@
 import { useLocation } from 'react-router-dom'
-import { Crosshair, LayoutTemplate, Bookmark, ChevronRight } from 'lucide-react'
+import { Crosshair, LayoutTemplate, Bookmark, ScanSearch, HelpCircle, ChevronRight } from 'lucide-react'
 
 const meta: Record<string, { title: string; description: string; icon: React.ElementType; cmd: string }> = {
-  '/':          { title: 'BUILDER',   description: 'construct query',         icon: Crosshair,      cmd: 'dorkly build'     },
-  '/templates': { title: 'TEMPLATES', description: 'browse dork library',     icon: LayoutTemplate, cmd: 'dorkly templates' },
-  '/saved':     { title: 'SAVED',     description: 'personal dork library',   icon: Bookmark,       cmd: 'dorkly saved'     },
+  '/':          { title: 'BUILDER',   description: 'construct query',         icon: Crosshair,      cmd: 'dorkly build'    },
+  '/templates': { title: 'TEMPLATES', description: 'browse dork library',     icon: LayoutTemplate, cmd: 'dorkly list'     },
+  '/saved':     { title: 'SAVED',     description: 'personal dork library',   icon: Bookmark,       cmd: 'dorkly saved'    },
+  '/scanner':   { title: 'SCANNER',   description: 'domain recon suite',      icon: ScanSearch,     cmd: 'dorkly scan'     },
+  '/help':      { title: 'HELP',      description: 'docs and operator guide', icon: HelpCircle,     cmd: 'dorkly --help'   },
 }
 
 export default function Topbar() {
@@ -12,8 +14,8 @@ export default function Topbar() {
   const page = meta[pathname] || meta['/']
 
   return (
-    <header className="shrink-0 flex items-center gap-0 px-5 py-3 border-b border-phosphor-400/10 bg-black/60 backdrop-blur-sm">
-      <span className="text-phosphor-700 text-xs mr-2 font-mono">~/dorkly</span>
+    <header className="shrink-0 flex items-center px-5 py-3 border-b border-phosphor-400/10 bg-black/60 backdrop-blur-sm">
+      <span className="text-phosphor-700 text-xs font-mono mr-2">~/dorkly</span>
       <ChevronRight size={12} className="text-phosphor-700 mr-2" />
       <span className="text-phosphor-500 text-xs font-mono mr-4">{page.cmd}</span>
       <div className="flex-1" />

@@ -3,6 +3,8 @@ import Layout from '@/components/layout/Layout'
 import BuilderPage from '@/pages/BuilderPage'
 import TemplatesPage from '@/pages/TemplatesPage'
 import SavedPage from '@/pages/SavedPage'
+import ScannerPage from '@/pages/ScannerPage'
+import HelpPage from '@/pages/HelpPage'
 
 export default function App() {
   return (
@@ -11,6 +13,8 @@ export default function App() {
         <Route index element={<BuilderPage />} />
         <Route path="templates" element={<TemplatesPage />} />
         <Route path="saved" element={<SavedPage />} />
+        <Route path="scanner" element={<ScannerPage />} />
+        <Route path="help" element={<HelpPage />} />
       </Route>
     </Routes>
   )

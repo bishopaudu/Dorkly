@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import { dorksRouter } from './routes/dorks'
 import { templatesRouter } from './routes/templates'
+import { scannerRouter } from './routes/scanner'
 
 dotenv.config()
 
@@ -19,5 +20,6 @@ app.use(express.json())
 app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'dorkly-api' }))
 app.use('/api/dorks', dorksRouter)
 app.use('/api/templates', templatesRouter)
+app.use('/api/scanner', scannerRouter)
 
 app.listen(PORT, () => console.log(`Dorkly API running on http://localhost:${PORT}`))

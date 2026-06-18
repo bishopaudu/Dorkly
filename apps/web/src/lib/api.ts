@@ -8,6 +8,10 @@ http.interceptors.response.use(
   e => Promise.reject(e?.response?.data?.error || 'Something went wrong')
 )
 
+export interface ScanDork   { title: string; query: string }
+export interface ScanCategory { id: string; label: string; description: string; dorks: ScanDork[] }
+export interface ScanResult { domain: string; categories: ScanCategory[]; total: number }
+
 export const api = {
   templates: {
     list: (params?: { category?: string; search?: string; difficulty?: string }) =>
@@ -24,5 +28,9 @@ export const api = {
       http.post<{ data: SavedDork }>('/dorks', payload).then(r => r.data.data),
     delete: (id: string) =>
       http.delete(`/dorks/${id}`),
+  },
+  scanner: {
+    scan: (domain: string) =>
+      http.post<{ data: ScanResult }>('/scanner/scan', { domain }).then(r => r.data.data),
   },
 }

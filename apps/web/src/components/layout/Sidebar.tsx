@@ -1,17 +1,18 @@
 import { NavLink } from 'react-router-dom'
-import { Terminal, LayoutTemplate, Bookmark, Crosshair } from 'lucide-react'
+import { Terminal, LayoutTemplate, Bookmark, Crosshair, ScanSearch, HelpCircle } from 'lucide-react'
 import { clsx } from 'clsx'
 
 const nav = [
-  { to: '/',          icon: Crosshair,      label: 'builder',   prefix: '01' },
-  { to: '/templates', icon: LayoutTemplate, label: 'templates', prefix: '02' },
-  { to: '/saved',     icon: Bookmark,       label: 'saved',     prefix: '03' },
+  { to: '/',          icon: Crosshair,     label: 'builder',   prefix: '01' },
+  { to: '/templates', icon: LayoutTemplate,label: 'templates', prefix: '02' },
+  { to: '/saved',     icon: Bookmark,      label: 'saved',     prefix: '03' },
+  { to: '/scanner',   icon: ScanSearch,    label: 'scanner',   prefix: '04' },
+  { to: '/help',      icon: HelpCircle,    label: 'help',      prefix: '05' },
 ]
 
 export default function Sidebar() {
   return (
     <aside className="w-56 shrink-0 flex flex-col border-r border-phosphor-400/10 bg-black/80 backdrop-blur-sm">
-
       <div className="px-4 py-5 border-b border-phosphor-400/10">
         <div className="flex items-center gap-2.5 mb-1">
           <Terminal size={16} className="text-phosphor-400" />
@@ -26,7 +27,7 @@ export default function Sidebar() {
         {nav.map(({ to, icon: Icon, label, prefix }) => (
           <NavLink key={to} to={to} end={to === '/'}
             className={({ isActive }) => clsx(
-              'flex items-center gap-3 px-3 py-2.5 text-xs font-mono font-medium transition-all duration-100 group',
+              'flex items-center gap-3 px-3 py-2.5 text-xs font-mono font-medium transition-all duration-100',
               isActive
                 ? 'text-phosphor-400 bg-phosphor-400/8 border-l-2 border-phosphor-400'
                 : 'text-phosphor-700 border-l-2 border-transparent hover:text-phosphor-400 hover:bg-phosphor-400/5 hover:border-phosphor-400/30'
