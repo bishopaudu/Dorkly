@@ -8,9 +8,10 @@ http.interceptors.response.use(
   e => Promise.reject(e?.response?.data?.error || 'Something went wrong')
 )
 
-export interface ScanDork   { title: string; query: string }
-export interface ScanCategory { id: string; label: string; description: string; dorks: ScanDork[] }
-export interface ScanResult { domain: string; categories: ScanCategory[]; total: number }
+export interface ScanDork      { title: string; query: string }
+export interface ScanCategory  { id: string; label: string; description: string; dorks: ScanDork[] }
+export interface ScanResult    { domain: string; categories: ScanCategory[]; total: number }
+export interface GithubResult  { query: string; categories: ScanCategory[]; total: number }
 
 export const api = {
   templates: {
@@ -32,5 +33,9 @@ export const api = {
   scanner: {
     scan: (domain: string) =>
       http.post<{ data: ScanResult }>('/scanner/scan', { domain }).then(r => r.data.data),
+  },
+  github: {
+    scan: (query: string) =>
+      http.post<{ data: GithubResult }>('/github/scan', { query }).then(r => r.data.data),
   },
 }

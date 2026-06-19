@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import { dorksRouter } from './routes/dorks'
 import { templatesRouter } from './routes/templates'
 import { scannerRouter } from './routes/scanner'
+import { githubRouter } from './routes/github'
 
 dotenv.config()
 
@@ -21,5 +22,6 @@ app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'dorkly-api'
 app.use('/api/dorks', dorksRouter)
 app.use('/api/templates', templatesRouter)
 app.use('/api/scanner', scannerRouter)
+app.use('/api/github', githubRouter)
 
 app.listen(PORT, () => console.log(`Dorkly API running on http://localhost:${PORT}`))

@@ -1,12 +1,13 @@
 import { useLocation } from 'react-router-dom'
-import { Crosshair, LayoutTemplate, Bookmark, ScanSearch, HelpCircle, ChevronRight } from 'lucide-react'
+import { Crosshair, LayoutTemplate, Bookmark, ScanSearch, HelpCircle, Code2, ChevronRight } from 'lucide-react'
 
 const meta: Record<string, { title: string; description: string; icon: React.ElementType; cmd: string }> = {
-  '/':          { title: 'BUILDER',   description: 'construct query',         icon: Crosshair,      cmd: 'dorkly build'    },
-  '/templates': { title: 'TEMPLATES', description: 'browse dork library',     icon: LayoutTemplate, cmd: 'dorkly list'     },
-  '/saved':     { title: 'SAVED',     description: 'personal dork library',   icon: Bookmark,       cmd: 'dorkly saved'    },
-  '/scanner':   { title: 'SCANNER',   description: 'domain recon suite',      icon: ScanSearch,     cmd: 'dorkly scan'     },
-  '/help':      { title: 'HELP',      description: 'docs and operator guide', icon: HelpCircle,     cmd: 'dorkly --help'   },
+  '/':          { title: 'BUILDER',   description: 'construct query',           icon: Crosshair,      cmd: 'dorkly build'    },
+  '/templates': { title: 'TEMPLATES', description: 'browse dork library',       icon: LayoutTemplate, cmd: 'dorkly list'     },
+  '/saved':     { title: 'SAVED',     description: 'personal dork library',     icon: Bookmark,       cmd: 'dorkly saved'    },
+  '/scanner':   { title: 'SCANNER',   description: 'domain recon suite',        icon: ScanSearch,     cmd: 'dorkly scan'     },
+  '/github':    { title: 'GITHUB',    description: 'code & secret recon',       icon: Code2,          cmd: 'dorkly gh-scan'  },
+  '/help':      { title: 'HELP',      description: 'docs and operator guide',   icon: HelpCircle,     cmd: 'dorkly --help'   },
 }
 
 export default function Topbar() {
