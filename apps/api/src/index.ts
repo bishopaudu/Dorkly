@@ -7,6 +7,8 @@ import { dorksRouter } from './routes/dorks'
 import { templatesRouter } from './routes/templates'
 import { scannerRouter } from './routes/scanner'
 import { githubRouter } from './routes/github'
+import { ghdbRouter } from './routes/ghdb'
+import { exportRouter } from './routes/export'
 
 dotenv.config()
 
@@ -23,5 +25,7 @@ app.use('/api/dorks', dorksRouter)
 app.use('/api/templates', templatesRouter)
 app.use('/api/scanner', scannerRouter)
 app.use('/api/github', githubRouter)
+app.use('/api/ghdb', ghdbRouter)
+app.use('/api/export', exportRouter)
 
 app.listen(PORT, () => console.log(`Dorkly API running on http://localhost:${PORT}`))

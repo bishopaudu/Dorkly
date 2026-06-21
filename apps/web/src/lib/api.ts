@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { Template, SavedDork } from '@dorkly/shared'
 
-const http = axios.create({ baseURL: '/api', timeout: 10000 })
+const http = axios.create({ baseURL: '/api', timeout: 30000 })
 
 http.interceptors.response.use(
   r => r,
@@ -12,6 +12,9 @@ export interface ScanDork      { title: string; query: string }
 export interface ScanCategory  { id: string; label: string; description: string; dorks: ScanDork[] }
 export interface ScanResult    { domain: string; categories: ScanCategory[]; total: number }
 export interface GithubResult  { query: string; categories: ScanCategory[]; total: number }
+
+export interface GhdbEntry  { id: string; query: string; category: string; author: string; dateAdded: string }
+export interface SyncMeta   { id: string; lastSyncedAt: string; entryCount: number; sourceUrl: string }
 
 export const api = {
   templates: {
@@ -37,5 +40,15 @@ export const api = {
   github: {
     scan: (query: string) =>
       http.post<{ data: GithubResult }>('/github/scan', { query }).then(r => r.data.data),
+  },
+  ghdb: {
+    sync: () =>
+      http.post<{ data: { synced: number; sourceUrl: string } }>('/ghdb/sync').then(r => r.data.data),
+    status: () =>
+      http.get<{ data: SyncMeta | null }>('/ghdb/status').then(r => r.data.data),
+    entries: (params?: { search?: string; category?: string; limit?: number; offset?: number }) =>
+      http.get<{ data: GhdbEntry[] }>('/ghdb/entries', { params }).then(r => r.data.data),
+    categories: () =>
+      http.get<{ data: string[] }>('/ghdb/categories').then(r => r.data.data),
   },
 }

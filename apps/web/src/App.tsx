@@ -5,6 +5,7 @@ import TemplatesPage from '@/pages/TemplatesPage'
 import SavedPage from '@/pages/SavedPage'
 import ScannerPage from '@/pages/ScannerPage'
 import GithubPage from '@/pages/GithubPage'
+import GhdbPage from '@/pages/GhdbPage'
 import HelpPage from '@/pages/HelpPage'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="saved" element={<SavedPage />} />
         <Route path="scanner" element={<ScannerPage />} />
         <Route path="github" element={<GithubPage />} />
+        <Route path="ghdb" element={<GhdbPage />} />
         <Route path="help" element={<HelpPage />} />
       </Route>
     </Routes>

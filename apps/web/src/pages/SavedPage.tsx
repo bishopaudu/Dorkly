@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { Bookmark, Trash2, ExternalLink, Terminal, Copy, Search } from 'lucide-react'
+import ExportMenu from '@/components/ui/ExportMenu'
 import { api } from '@/lib/api'
 import Badge from '@/components/ui/Badge'
 import EmptyState from '@/components/ui/EmptyState'
@@ -62,16 +63,23 @@ export default function SavedPage() {
           <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
             SAVED DORKS
           </h2>
-          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.4)', marginTop: '3px' }}>
+          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
             {dorks.length} saved // personal dork library
           </p>
         </div>
+        {dorks.length > 0 && (
+          <ExportMenu
+            items={dorks.map(d => ({ title: d.title, query: d.query, description: d.description, category: d.category }))}
+            onExported={() => toast('Export downloaded')}
+            onError={(msg) => toast(msg, 'error')}
+          />
+        )}
       </div>
 
       <div style={{ position: 'relative' }}>
         <Search size={14} style={{
           position: 'absolute', left: '12px', top: '50%',
-          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.35)',
+          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
           pointerEvents: 'none',
         }} />
         <input
@@ -116,7 +124,7 @@ export default function SavedPage() {
                 style={{
                   padding: '12px 16px',
                   cursor: 'pointer',
-                  borderColor: selected?.id === d.id ? 'rgba(0,232,77,0.45)' : undefined,
+                  borderColor: selected?.id === d.id ? 'rgba(0,232,77,0.68)' : undefined,
                   background: selected?.id === d.id ? 'rgba(0,232,77,0.06)' : undefined,
                   boxShadow: selected?.id === d.id ? '0 0 16px rgba(0,232,77,0.15)' : undefined,
                   display: 'flex',
@@ -124,7 +132,7 @@ export default function SavedPage() {
                   gap: '12px',
                 }}
               >
-                <Bookmark size={13} style={{ color: 'rgba(0,232,77,0.3)', flexShrink: 0 }} />
+                <Bookmark size={13} style={{ color: 'rgba(0,232,77,0.48)', flexShrink: 0 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00e84d' }}>
@@ -134,8 +142,8 @@ export default function SavedPage() {
                   </div>
                   <code style={{
                     fontSize: '0.65rem',
-                    color: 'rgba(0,232,77,0.4)',
-                    fontFamily: 'JetBrains Mono, monospace',
+                    color: 'rgba(0,232,77,0.62)',
+                    fontFamily: 'IBM Plex Mono, monospace',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -193,13 +201,13 @@ export default function SavedPage() {
                 borderRadius: '2px',
                 padding: '10px 12px',
                 marginBottom: '16px',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'IBM Plex Mono, monospace',
                 fontSize: '0.7rem',
                 color: '#00e84d',
                 wordBreak: 'break-all',
                 lineHeight: 1.6,
               }}>
-                <span style={{ color: 'rgba(0,232,77,0.35)' }}>$ </span>{selected.query}
+                <span style={{ color: 'rgba(0,232,77,0.72)' }}>$ </span>{selected.query}
               </div>
 
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
@@ -229,7 +237,7 @@ export default function SavedPage() {
               </div>
 
               <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(0,232,77,0.08)' }}>
-                <p style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.25)' }}>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.48)' }}>
                   SAVED {fmt(selected.createdAt)}
                 </p>
               </div>

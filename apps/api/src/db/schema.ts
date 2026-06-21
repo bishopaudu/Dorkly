@@ -22,3 +22,19 @@ export const savedDorks = pgTable('saved_dorks', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
+
+export const ghdbEntries = pgTable('ghdb_entries', {
+  id: text('id').primaryKey(),
+  query: text('query').notNull(),
+  category: text('category').notNull(),
+  author: text('author').default(''),
+  dateAdded: text('date_added').default(''),
+  syncedAt: timestamp('synced_at').notNull().defaultNow(),
+})
+
+export const syncMeta = pgTable('sync_meta', {
+  id: text('id').primaryKey(),
+  lastSyncedAt: timestamp('last_synced_at').notNull().defaultNow(),
+  entryCount: integer('entry_count').notNull().default(0),
+  sourceUrl: text('source_url').notNull(),
+})

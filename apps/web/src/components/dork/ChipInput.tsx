@@ -27,7 +27,7 @@ export default function ChipInput({ chip, onUpdate, onRemove }: Props) {
         animation: 'fadeIn 0.15s ease-out',
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'rgba(0,232,77,0.4)'
+        e.currentTarget.style.borderColor = 'rgba(0,232,77,0.62)'
         e.currentTarget.style.boxShadow = '0 0 8px rgba(0,232,77,0.1)'
       }}
       onMouseLeave={e => {
@@ -36,7 +36,7 @@ export default function ChipInput({ chip, onUpdate, onRemove }: Props) {
       }}
     >
       <code style={{
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'IBM Plex Mono, monospace',
         fontSize: '0.7rem',
         color: '#00e84d',
         whiteSpace: 'nowrap',
@@ -54,7 +54,7 @@ export default function ChipInput({ chip, onUpdate, onRemove }: Props) {
           background: 'transparent',
           border: 'none',
           outline: 'none',
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'IBM Plex Mono, monospace',
           fontSize: '0.8rem',
           color: '#00e84d',
           width: '100%',

@@ -72,7 +72,7 @@ export default function TemplatesPage() {
           <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
             TEMPLATE LIBRARY
           </h2>
-          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.4)', marginTop: '3px' }}>
+          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
             {templates.length} dork{templates.length !== 1 ? 's' : ''} available // select to preview or execute
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function TemplatesPage() {
       <div style={{ position: 'relative' }}>
         <Search size={14} style={{
           position: 'absolute', left: '12px', top: '50%',
-          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.35)',
+          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
           pointerEvents: 'none',
         }} />
         <input
@@ -101,7 +101,7 @@ export default function TemplatesPage() {
             key={cat}
             onClick={() => setCategory(cat)}
             style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'IBM Plex Mono, monospace',
               fontSize: '0.6rem',
               fontWeight: 600,
               letterSpacing: '0.12em',
@@ -109,20 +109,20 @@ export default function TemplatesPage() {
               borderRadius: '2px',
               border: category === cat ? '1px solid rgba(0,232,77,0.5)' : '1px solid rgba(0,232,77,0.1)',
               background: category === cat ? 'rgba(0,232,77,0.12)' : 'transparent',
-              color: category === cat ? '#00e84d' : 'rgba(0,232,77,0.35)',
+              color: category === cat ? '#00e84d' : 'rgba(0,232,77,0.72)',
               cursor: 'pointer',
               transition: 'all 0.1s',
             }}
             onMouseEnter={e => {
               if (category !== cat) {
-                e.currentTarget.style.borderColor = 'rgba(0,232,77,0.3)'
-                e.currentTarget.style.color = 'rgba(0,232,77,0.7)'
+                e.currentTarget.style.borderColor = 'rgba(0,232,77,0.48)'
+                e.currentTarget.style.color = 'rgba(0,232,77,0.85)'
               }
             }}
             onMouseLeave={e => {
               if (category !== cat) {
                 e.currentTarget.style.borderColor = 'rgba(0,232,77,0.1)'
-                e.currentTarget.style.color = 'rgba(0,232,77,0.35)'
+                e.currentTarget.style.color = 'rgba(0,232,77,0.72)'
               }
             }}
           >
@@ -147,7 +147,7 @@ export default function TemplatesPage() {
                 style={{
                   padding: '12px 16px',
                   cursor: 'pointer',
-                  borderColor: selected?.id === t.id ? 'rgba(0,232,77,0.45)' : undefined,
+                  borderColor: selected?.id === t.id ? 'rgba(0,232,77,0.68)' : undefined,
                   background: selected?.id === t.id ? 'rgba(0,232,77,0.06)' : undefined,
                   boxShadow: selected?.id === t.id ? '0 0 16px rgba(0,232,77,0.15)' : undefined,
                   display: 'flex',
@@ -158,7 +158,7 @@ export default function TemplatesPage() {
                 <ChevronRight
                   size={13}
                   style={{
-                    color: 'rgba(0,232,77,0.3)',
+                    color: 'rgba(0,232,77,0.48)',
                     flexShrink: 0,
                     transform: selected?.id === t.id ? 'rotate(90deg)' : 'none',
                     transition: 'transform 0.15s',
@@ -174,8 +174,8 @@ export default function TemplatesPage() {
                   </div>
                   <code style={{
                     fontSize: '0.65rem',
-                    color: 'rgba(0,232,77,0.4)',
-                    fontFamily: 'JetBrains Mono, monospace',
+                    color: 'rgba(0,232,77,0.62)',
+                    fontFamily: 'IBM Plex Mono, monospace',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -185,7 +185,7 @@ export default function TemplatesPage() {
                     {t.query}
                   </code>
                 </div>
-                <span style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.25)', flexShrink: 0 }}>
+                <span style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.48)', flexShrink: 0 }}>
                   {t.usageCount}x
                 </span>
               </div>
@@ -212,13 +212,13 @@ export default function TemplatesPage() {
               borderRadius: '2px',
               padding: '10px 12px',
               marginBottom: '16px',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'IBM Plex Mono, monospace',
               fontSize: '0.7rem',
               color: '#00e84d',
               wordBreak: 'break-all',
               lineHeight: 1.6,
             }}>
-              <span style={{ color: 'rgba(0,232,77,0.35)' }}>$ </span>{selected.query}
+              <span style={{ color: 'rgba(0,232,77,0.72)' }}>$ </span>{selected.query}
             </div>
 
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
@@ -248,7 +248,7 @@ export default function TemplatesPage() {
             </div>
 
             <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(0,232,77,0.08)' }}>
-              <p style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.25)' }}>
+              <p style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.48)' }}>
                 USED {selected.usageCount} TIME{selected.usageCount !== 1 ? 'S' : ''}
               </p>
             </div>

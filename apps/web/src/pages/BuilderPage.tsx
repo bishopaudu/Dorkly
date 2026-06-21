@@ -36,7 +36,7 @@ export default function BuilderPage() {
           <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
             QUERY BUILDER
           </h2>
-          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.4)', marginTop: '3px' }}>
+          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
             construct dork queries visually // operators + free text
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function BuilderPage() {
       <div className="card" style={{ padding: '16px' }}>
         <p className="section-label" style={{ marginBottom: '12px' }}>// BUILD</p>
         <div style={{ marginBottom: '12px' }}>
-          <label style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.4)', display: 'block', marginBottom: '6px', letterSpacing: '0.08em' }}>
+          <label style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.62)', display: 'block', marginBottom: '6px', letterSpacing: '0.08em' }}>
             FREE TEXT / KEYWORDS
           </label>
           <input
@@ -67,7 +67,7 @@ export default function BuilderPage() {
 
         {builder.chips.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.4)', letterSpacing: '0.08em' }}>
+            <label style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.62)', letterSpacing: '0.08em' }}>
               OPERATORS
             </label>
             {builder.chips.map(chip => (
@@ -77,7 +77,7 @@ export default function BuilderPage() {
         )}
 
         {builder.chips.length === 0 && !builder.freeText && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.7rem', color: 'rgba(0,232,77,0.25)', paddingTop: '4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.7rem', color: 'rgba(0,232,77,0.48)', paddingTop: '4px' }}>
             <Lightbulb size={13} style={{ color: 'rgba(255,179,0,0.5)' }} />
             click an operator above to start building
           </div>

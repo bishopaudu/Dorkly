@@ -72,7 +72,7 @@ export default function ScannerPage() {
         <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
           DOMAIN SCANNER
         </h2>
-        <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.4)', marginTop: '3px' }}>
+        <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
           enter a domain // auto-generate full recon dork suite across 8 categories
         </p>
       </div>
@@ -84,7 +84,7 @@ export default function ScannerPage() {
           <div style={{ position: 'relative', flex: 1 }}>
             <Globe size={14} style={{
               position: 'absolute', left: '12px', top: '50%',
-              transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.35)',
+              transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
               pointerEvents: 'none',
             }} />
             <input
@@ -107,7 +107,7 @@ export default function ScannerPage() {
               : <><ScanSearch size={13} /> scan</>}
           </button>
         </div>
-        <p style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.25)', marginTop: '8px' }}>
+        <p style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.48)', marginTop: '8px' }}>
           accepts bare domains, URLs, or subdomains — strips protocol automatically
         </p>
       </div>
@@ -128,7 +128,7 @@ export default function ScannerPage() {
                   alignItems: 'center',
                   gap: '6px',
                   padding: '5px 12px',
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'IBM Plex Mono, monospace',
                   fontSize: '0.65rem',
                   fontWeight: 600,
                   letterSpacing: '0.1em',
@@ -173,8 +173,8 @@ export default function ScannerPage() {
             { label: 'DORKS',      value: result.total },
           ].map(({ label, value }) => (
             <div key={label}>
-              <p style={{ fontSize: '0.55rem', color: 'rgba(0,232,77,0.35)', letterSpacing: '0.12em', marginBottom: '2px' }}>{label}</p>
-              <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#00e84d', fontFamily: 'JetBrains Mono, monospace' }}>{value}</p>
+              <p style={{ fontSize: '0.55rem', color: 'rgba(0,232,77,0.72)', letterSpacing: '0.12em', marginBottom: '2px' }}>{label}</p>
+              <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>{value}</p>
             </div>
           ))}
         </div>
@@ -201,16 +201,16 @@ export default function ScannerPage() {
               >
                 {expanded[cat.id]
                   ? <ChevronDown size={13} style={{ color: '#00e84d', flexShrink: 0 }} />
-                  : <ChevronRight size={13} style={{ color: 'rgba(0,232,77,0.4)', flexShrink: 0 }} />}
+                  : <ChevronRight size={13} style={{ color: 'rgba(0,232,77,0.62)', flexShrink: 0 }} />}
                 <div style={{ flex: 1 }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
                     {cat.label.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.35)', marginLeft: '10px' }}>
+                  <span style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.72)', marginLeft: '10px' }}>
                     // {cat.description}
                   </span>
                 </div>
-                <span style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.3)', fontFamily: 'JetBrains Mono, monospace' }}>
+                <span style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.48)', fontFamily: 'IBM Plex Mono, monospace' }}>
                   {cat.dorks.length} dorks
                 </span>
               </button>
@@ -235,13 +235,13 @@ export default function ScannerPage() {
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontSize: '0.7rem', fontWeight: 500, color: 'rgba(0,232,77,0.7)', marginBottom: '3px' }}>
+                        <p style={{ fontSize: '0.7rem', fontWeight: 500, color: 'rgba(0,232,77,0.85)', marginBottom: '3px' }}>
                           {dork.title}
                         </p>
                         <code style={{
                           fontSize: '0.65rem',
-                          color: 'rgba(0,232,77,0.4)',
-                          fontFamily: 'JetBrains Mono, monospace',
+                          color: 'rgba(0,232,77,0.62)',
+                          fontFamily: 'IBM Plex Mono, monospace',
                           display: 'block',
                           whiteSpace: 'nowrap',
                           overflow: 'hidden',

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Terminal, LayoutTemplate, Bookmark, Crosshair, ScanSearch, HelpCircle, Code2 } from 'lucide-react'
+import { Terminal, LayoutTemplate, Bookmark, Crosshair, ScanSearch, HelpCircle, Code2, Database } from 'lucide-react'
 import { clsx } from 'clsx'
 
 const nav = [
@@ -7,8 +7,9 @@ const nav = [
   { to: '/templates', icon: LayoutTemplate,label: 'templates', prefix: '02' },
   { to: '/saved',     icon: Bookmark,      label: 'saved',     prefix: '03' },
   { to: '/scanner',   icon: ScanSearch,    label: 'scanner',   prefix: '04' },
-  { to: '/github',    icon: Code2,        label: 'github',    prefix: '05' },
-  { to: '/help',      icon: HelpCircle,    label: 'help',      prefix: '06' },
+  { to: '/github',    icon: Code2,         label: 'github',    prefix: '05' },
+  { to: '/ghdb',      icon: Database,      label: 'ghdb',      prefix: '06' },
+  { to: '/help',      icon: HelpCircle,    label: 'help',      prefix: '07' },
 ]
 
 export default function Sidebar() {

@@ -114,7 +114,7 @@ function PageSection({ section }: { section: Section }) {
         </div>
         <div>
           <p style={{ fontSize: '0.8rem', fontWeight: 700, color: '#00e84d', letterSpacing: '0.08em' }}>{section.name}</p>
-          <p style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.4)' }}>{section.summary}</p>
+          <p style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.62)' }}>{section.summary}</p>
         </div>
       </div>
 
@@ -126,7 +126,7 @@ function PageSection({ section }: { section: Section }) {
               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <span style={{
                   fontSize: '0.55rem', fontWeight: 700,
-                  color: 'rgba(0,232,77,0.3)',
+                  color: 'rgba(0,232,77,0.48)',
                   letterSpacing: '0.1em',
                   marginTop: '2px',
                   flexShrink: 0,
@@ -134,7 +134,7 @@ function PageSection({ section }: { section: Section }) {
                 }}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.6)', lineHeight: 1.6 }}>{step}</p>
+                <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.78)', lineHeight: 1.6 }}>{step}</p>
               </div>
             ))}
           </div>
@@ -146,7 +146,7 @@ function PageSection({ section }: { section: Section }) {
             {section.tips.map((tip, i) => (
               <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
                 <ChevronRight size={11} style={{ color: '#00e84d', flexShrink: 0, marginTop: '3px' }} />
-                <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.55)', lineHeight: 1.6 }}>{tip}</p>
+                <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.72)', lineHeight: 1.6 }}>{tip}</p>
               </div>
             ))}
           </div>
@@ -164,7 +164,7 @@ export default function HelpPage() {
         <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
           HELP & DOCUMENTATION
         </h2>
-        <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.4)', marginTop: '3px' }}>
+        <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
           everything you need to know about using dorkly
         </p>
       </div>
@@ -175,15 +175,15 @@ export default function HelpPage() {
           <Terminal size={15} style={{ color: '#00e84d' }} />
           <p className="section-label">// WHAT IS GOOGLE DORKING?</p>
         </div>
-        <p style={{ fontSize: '0.72rem', color: 'rgba(0,232,77,0.6)', lineHeight: 1.8, marginBottom: '12px' }}>
+        <p style={{ fontSize: '0.72rem', color: 'rgba(0,232,77,0.78)', lineHeight: 1.8, marginBottom: '12px' }}>
           Google Dorking — also called Google Hacking — is the practice of using advanced Google search operators
-          to find information that standard searches miss. By combining operators like <code style={{ color: '#00e84d', fontFamily: 'JetBrains Mono, monospace' }}>site:</code>,{' '}
-          <code style={{ color: '#00e84d', fontFamily: 'JetBrains Mono, monospace' }}>filetype:</code>, and{' '}
-          <code style={{ color: '#00e84d', fontFamily: 'JetBrains Mono, monospace' }}>intitle:</code>, you can surface
+          to find information that standard searches miss. By combining operators like <code style={{ color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>site:</code>,{' '}
+          <code style={{ color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>filetype:</code>, and{' '}
+          <code style={{ color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>intitle:</code>, you can surface
           exposed files, login panels, sensitive documents, misconfigured servers, and much more — all from publicly
           indexed data.
         </p>
-        <p style={{ fontSize: '0.72rem', color: 'rgba(0,232,77,0.6)', lineHeight: 1.8 }}>
+        <p style={{ fontSize: '0.72rem', color: 'rgba(0,232,77,0.78)', lineHeight: 1.8 }}>
           Dorkly makes this accessible to everyone — security researchers, OSINT analysts, journalists, and
           competitive intelligence professionals — without needing to memorise operator syntax or write queries
           from scratch.
@@ -207,10 +207,10 @@ export default function HelpPage() {
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,232,77,0.04)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
             >
-              <code style={{ fontSize: '0.72rem', fontWeight: 700, color: '#00e84d', fontFamily: 'JetBrains Mono, monospace' }}>
+              <code style={{ fontSize: '0.72rem', fontWeight: 700, color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>
                 {op}
               </code>
-              <code style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.45)', fontFamily: 'JetBrains Mono, monospace' }}>
+              <code style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.68)', fontFamily: 'IBM Plex Mono, monospace' }}>
                 {example}
               </code>
               <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.5)', lineHeight: 1.5 }}>
@@ -235,7 +235,7 @@ export default function HelpPage() {
               <p style={{ fontSize: '0.65rem', fontWeight: 700, color: cat.color, letterSpacing: '0.1em', marginBottom: '4px' }}>
                 {cat.label}
               </p>
-              <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.45)', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.68rem', color: 'rgba(0,232,77,0.68)', lineHeight: 1.5 }}>
                 {cat.desc}
               </p>
             </div>

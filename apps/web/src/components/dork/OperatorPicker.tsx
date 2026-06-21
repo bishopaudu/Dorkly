@@ -25,12 +25,12 @@ export default function OperatorPicker({ operators, onAdd, activeIds }: Props) {
                 gap: '6px',
                 padding: '5px 10px',
                 fontSize: '0.7rem',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'IBM Plex Mono, monospace',
                 fontWeight: 500,
                 borderRadius: '2px',
                 border: active ? '1px solid rgba(0,232,77,0.5)' : '1px solid rgba(0,232,77,0.15)',
                 background: active ? 'rgba(0,232,77,0.1)' : 'rgba(0,232,77,0.03)',
-                color: active ? '#00e84d' : 'rgba(0,232,77,0.55)',
+                color: active ? '#00e84d' : 'rgba(0,232,77,0.72)',
                 cursor: 'pointer',
                 transition: 'all 0.1s',
               }}
@@ -44,14 +44,14 @@ export default function OperatorPicker({ operators, onAdd, activeIds }: Props) {
               onMouseLeave={e => {
                 const el = e.currentTarget
                 el.style.borderColor = active ? 'rgba(0,232,77,0.5)' : 'rgba(0,232,77,0.15)'
-                el.style.color = active ? '#00e84d' : 'rgba(0,232,77,0.55)'
+                el.style.color = active ? '#00e84d' : 'rgba(0,232,77,0.72)'
                 el.style.background = active ? 'rgba(0,232,77,0.1)' : 'rgba(0,232,77,0.03)'
                 el.style.boxShadow = 'none'
               }}
             >
               <code style={{ fontFamily: 'inherit', color: '#00e84d' }}>{op.operator}</code>
               <span>{op.label}</span>
-              <Plus size={10} style={{ color: 'rgba(0,232,77,0.4)' }} />
+              <Plus size={10} style={{ color: 'rgba(0,232,77,0.62)' }} />
             </button>
           )
         })}
