@@ -9,12 +9,12 @@ const GITHUB_CATEGORIES = [
     label: 'API Keys & Secrets',
     description: 'Exposed credentials and tokens in code',
     dorks: (q: string) => [
-      { title: 'Generic API keys',       query: `"${q}" "api_key" OR "apikey"` },
+      { title: 'Generic API keys',       query: `"${q}" ("api_key" OR "apikey")` },
       { title: 'AWS access keys',        query: `"${q}" "AKIA" AWS_ACCESS_KEY_ID` },
       { title: 'Private keys (PEM)',     query: `"${q}" "BEGIN RSA PRIVATE KEY"` },
-      { title: 'Slack tokens',           query: `"${q}" "xoxb-" OR "xoxp-"` },
-      { title: 'Database connection strings', query: `"${q}" "mongodb://" OR "postgres://"` },
-      { title: 'Hardcoded passwords',    query: `"${q}" "password" extension:env OR extension:yml` },
+      { title: 'Slack tokens',           query: `"${q}" ("xoxb-" OR "xoxp-")` },
+      { title: 'Database connection strings', query: `"${q}" ("mongodb://" OR "postgres://")` },
+      { title: 'Hardcoded passwords',    query: `"${q}" "password" (extension:env OR extension:yml)` },
     ],
   },
   {
@@ -47,9 +47,9 @@ const GITHUB_CATEGORIES = [
     description: 'Internal references and employee activity',
     dorks: (q: string) => [
       { title: 'Org repositories',       query: `org:"${q}"` },
-      { title: 'Internal domain mentions', query: `"${q}" "internal" OR "staging"` },
+      { title: 'Internal domain mentions', query: `"${q}" ("internal" OR "staging")` },
       { title: 'Commit messages mentioning company', query: `"${q}" in:commit` },
-      { title: 'Issues mentioning credentials', query: `"${q}" "password" OR "secret" in:issue` },
+      { title: 'Issues mentioning credentials', query: `"${q}" ("password" OR "secret") in:issue` },
       { title: 'Forked private-looking repos', query: `"${q}" fork:true` },
     ],
   },
@@ -59,10 +59,10 @@ const GITHUB_CATEGORIES = [
     description: 'Risky patterns and TODOs',
     dorks: (q: string) => [
       { title: 'TODO/FIXME security notes', query: `"${q}" "TODO" "security"` },
-      { title: 'Disabled SSL verification', query: `"${q}" "verify=False" OR "rejectUnauthorized: false"` },
+      { title: 'Disabled SSL verification', query: `"${q}" ("verify=False" OR "rejectUnauthorized: false")` },
       { title: 'Hardcoded IPs',          query: `"${q}" extension:js /\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b/` },
-      { title: 'Debug mode enabled',     query: `"${q}" "DEBUG = True" OR "debug: true"` },
-      { title: 'Commented-out auth checks', query: `"${q}" "// auth" OR "# auth"` },
+      { title: 'Debug mode enabled',     query: `"${q}" ("DEBUG = True" OR "debug: true")` },
+      { title: 'Commented-out auth checks', query: `"${q}" ("// auth" OR "# auth")` },
     ],
   },
 ]

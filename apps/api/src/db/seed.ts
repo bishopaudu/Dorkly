@@ -15,9 +15,9 @@ const templates = [
   { title: 'Exposed spreadsheets', description: 'Find publicly indexed Excel files', query: 'filetype:xlsx intext:"password" -site:github.com', category: 'research', tags: ['excel','spreadsheet','data'], difficulty: 'beginner' },
   { title: 'API keys in code', description: 'Find exposed API keys on GitHub', query: 'site:github.com intext:"api_key" filetype:env', category: 'security', tags: ['api','keys','github'], difficulty: 'advanced' },
   { title: 'Subdomain discovery', description: 'Enumerate subdomains of a target', query: 'site:*.example.com -www', category: 'recon', tags: ['subdomain','recon','enumeration'], difficulty: 'intermediate' },
-  { title: 'Forum posts by person', description: 'Find forum activity linked to a username', query: 'intext:"username" site:reddit.com OR site:forum.com', category: 'osint', tags: ['username','forum','social'], difficulty: 'beginner' },
-  { title: 'Exposed backup files', description: 'Find database and site backup files', query: 'filetype:sql OR filetype:bak intext:"INSERT INTO"', category: 'security', tags: ['backup','sql','database'], difficulty: 'advanced' },
-  { title: 'News articles about company', description: 'Research press coverage of a company', query: 'site:news.google.com OR site:techcrunch.com "Company Name"', category: 'research', tags: ['news','pr','media'], difficulty: 'beginner' },
+  { title: 'Forum posts by person', description: 'Find forum activity linked to a username', query: 'intext:"username" (site:reddit.com OR site:forum.com)', category: 'osint', tags: ['username','forum','social'], difficulty: 'beginner' },
+  { title: 'Exposed backup files', description: 'Find database and site backup files', query: '(filetype:sql OR filetype:bak) intext:"INSERT INTO"', category: 'security', tags: ['backup','sql','database'], difficulty: 'advanced' },
+  { title: 'News articles about company', description: 'Research press coverage of a company', query: '(site:news.google.com OR site:techcrunch.com) "Company Name"', category: 'research', tags: ['news','pr','media'], difficulty: 'beginner' },
 ]
 
 async function seed() {

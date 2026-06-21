@@ -1,4 +1,5 @@
 import { Crosshair, LayoutTemplate, Bookmark, ScanSearch, ChevronRight, Terminal, Shield, AlertTriangle } from 'lucide-react'
+import CrashCourse from '../components/help/CrashCourse';
 
 const OPERATORS = [
   { op: 'site:',     example: 'site:example.com',           desc: 'Restrict all results to a specific domain or subdomain.' },
@@ -189,6 +190,8 @@ export default function HelpPage() {
           from scratch.
         </p>
       </div>
+
+      <CrashCourse />
 
       {/* Operator reference */}
       <div className="card" style={{ padding: '20px' }}>

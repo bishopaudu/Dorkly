@@ -11,7 +11,7 @@ const SCAN_CATEGORIES = [
     dorks: (d: string) => [
       { title: 'Environment files',     query: `site:${d} filetype:env` },
       { title: 'Config files',          query: `site:${d} filetype:config` },
-      { title: 'Backup files',          query: `site:${d} filetype:bak OR filetype:backup` },
+      { title: 'Backup files',          query: `site:${d} (filetype:bak OR filetype:backup)` },
       { title: 'Log files',             query: `site:${d} filetype:log` },
       { title: 'SQL dumps',             query: `site:${d} filetype:sql` },
     ],
@@ -24,8 +24,8 @@ const SCAN_CATEGORIES = [
       { title: 'Admin panels',          query: `site:${d} inurl:admin` },
       { title: 'Login pages',           query: `site:${d} inurl:login` },
       { title: 'Dashboard pages',       query: `site:${d} inurl:dashboard` },
-      { title: 'Control panels',        query: `site:${d} inurl:cpanel OR inurl:wp-admin` },
-      { title: 'Signin pages',          query: `site:${d} intitle:"sign in" OR intitle:"log in"` },
+      { title: 'Control panels',        query: `site:${d} (inurl:cpanel OR inurl:wp-admin)` },
+      { title: 'Signin pages',          query: `site:${d} (intitle:"sign in" OR intitle:"log in")` },
     ],
   },
   {
@@ -34,8 +34,8 @@ const SCAN_CATEGORIES = [
     description: 'Public documents and reports',
     dorks: (d: string) => [
       { title: 'PDF documents',         query: `site:${d} filetype:pdf` },
-      { title: 'Word documents',        query: `site:${d} filetype:doc OR filetype:docx` },
-      { title: 'Excel spreadsheets',    query: `site:${d} filetype:xls OR filetype:xlsx` },
+      { title: 'Word documents',        query: `site:${d} (filetype:doc OR filetype:docx)` },
+      { title: 'Excel spreadsheets',    query: `site:${d} (filetype:xls OR filetype:xlsx)` },
       { title: 'Confidential docs',     query: `site:${d} filetype:pdf intitle:"confidential"` },
       { title: 'Internal reports',      query: `site:${d} filetype:pdf intitle:"internal"` },
     ],
@@ -46,10 +46,10 @@ const SCAN_CATEGORIES = [
     description: 'Subdomain enumeration',
     dorks: (d: string) => [
       { title: 'All subdomains',        query: `site:*.${d} -www` },
-      { title: 'Dev subdomains',        query: `site:*.${d} inurl:dev OR inurl:staging` },
+      { title: 'Dev subdomains',        query: `site:*.${d} (inurl:dev OR inurl:staging)` },
       { title: 'API subdomains',        query: `site:*.${d} inurl:api` },
-      { title: 'Mail subdomains',       query: `site:*.${d} inurl:mail OR inurl:webmail` },
-      { title: 'Test subdomains',       query: `site:*.${d} inurl:test OR inurl:uat` },
+      { title: 'Mail subdomains',       query: `site:*.${d} (inurl:mail OR inurl:webmail)` },
+      { title: 'Test subdomains',       query: `site:*.${d} (inurl:test OR inurl:uat)` },
     ],
   },
   {
@@ -59,9 +59,9 @@ const SCAN_CATEGORIES = [
     dorks: (d: string) => [
       { title: 'GitHub mentions',       query: `site:github.com "${d}"` },
       { title: 'Pastebin leaks',        query: `site:pastebin.com "${d}"` },
-      { title: 'API keys in code',      query: `site:github.com "${d}" apikey OR api_key` },
-      { title: 'Passwords in code',     query: `site:github.com "${d}" password OR passwd` },
-      { title: 'Cloud storage leaks',   query: `site:s3.amazonaws.com OR site:storage.googleapis.com "${d}"` },
+      { title: 'API keys in code',      query: `site:github.com "${d}" (apikey OR api_key)` },
+      { title: 'Passwords in code',     query: `site:github.com "${d}" (password OR passwd)` },
+      { title: 'Cloud storage leaks',   query: `(site:s3.amazonaws.com OR site:storage.googleapis.com) "${d}"` },
     ],
   },
   {
@@ -72,7 +72,7 @@ const SCAN_CATEGORIES = [
       { title: 'SQL errors',            query: `site:${d} intext:"sql syntax near"` },
       { title: 'PHP errors',            query: `site:${d} intext:"Warning: mysql_fetch"` },
       { title: 'Stack traces',          query: `site:${d} intext:"stack trace" intext:"at line"` },
-      { title: 'Database errors',       query: `site:${d} intext:"ORA-" OR intext:"MySQL Error"` },
+      { title: 'Database errors',       query: `site:${d} (intext:"ORA-" OR intext:"MySQL Error")` },
       { title: 'Exception pages',       query: `site:${d} intitle:"error" intext:"exception"` },
     ],
   },
