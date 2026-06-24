@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { X, Save } from 'lucide-react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useSavedDorks } from '@/hooks/useSavedDorks'
 
 interface Props {
   query: string
@@ -10,67 +9,66 @@ interface Props {
 }
 
 export default function SaveDorkModal({ query, onClose, onSaved }: Props) {
-  const [title, setTitle] = useState('')
+  const [title, setTitle]       = useState('')
   const [description, setDescription] = useState('')
-  const qc = useQueryClient()
+  const { save } = useSavedDorks()
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => api.dorks.save({ title, query, description }),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['dorks'] })
-      onSaved()
-      onClose()
-    },
-  })
+  const handleSave = () => {
+    if (!title.trim()) return
+    save({
+      title: title.trim(),
+      query,
+      description: description.trim(),
+      category: 'custom',
+      tags: [],
+    })
+    onSaved()
+    onClose()
+  }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="card w-full max-w-md p-6 space-y-4 animate-fade-up shadow-glow">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-white">Save dork</h2>
-          <button onClick={onClose} className="btn-ghost p-1.5 rounded-lg">
-            <X size={16} />
-          </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-sm animate-fade-in"
+      style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(4px)', position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+      <div className="card" style={{ width: '100%', maxWidth: '420px', padding: '24px', animation: 'fadeUp 0.2s ease-out', boxShadow: '0 0 40px rgba(0,232,77,0.15)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+          <p style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '0.05em' }}>SAVE DORK</p>
+          <button onClick={onClose} className="btn btn-ghost btn-sm"><X size={15} /></button>
         </div>
 
-        <div className="space-y-3">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div>
-            <label className="text-xs text-surface-400 mb-1.5 block">Title</label>
-            <input
-              className="input"
-              placeholder="e.g. Exposed login pages"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
+            <label style={{ fontSize: '0.65rem', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', letterSpacing: '0.08em' }}>TITLE</label>
+            <input className="input" placeholder="e.g. exposed login pages" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           </div>
           <div>
-            <label className="text-xs text-surface-400 mb-1.5 block">Description <span className="text-surface-600">(optional)</span></label>
-            <input
-              className="input"
-              placeholder="What does this dork find?"
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-            />
+            <label style={{ fontSize: '0.65rem', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', letterSpacing: '0.08em' }}>
+              DESCRIPTION <span style={{ color: 'var(--text-disabled)' }}>(optional)</span>
+            </label>
+            <input className="input" placeholder="what does this dork find?" value={description} onChange={e => setDescription(e.target.value)} />
           </div>
           <div>
-            <label className="text-xs text-surface-400 mb-1.5 block">Query</label>
-            <div className="bg-surface-950/80 border border-surface-700/50 rounded-xl px-4 py-3 font-mono text-xs text-brand-300 break-all">
-              {query}
+            <label style={{ fontSize: '0.65rem', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', letterSpacing: '0.08em' }}>QUERY</label>
+            <div style={{
+              background: '#000', border: '1px solid var(--border-default)',
+              borderRadius: '2px', padding: '10px 12px',
+              fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.68rem',
+              color: 'var(--text-primary)', wordBreak: 'break-all', lineHeight: 1.6,
+            }}>
+              <span style={{ color: 'var(--text-tertiary)' }}>$ </span>{query}
             </div>
           </div>
         </div>
 
-        <div className="flex gap-2 pt-1">
-          <button onClick={onClose} className="btn btn-secondary btn-md flex-1">Cancel</button>
-          <button
-            onClick={() => mutate()}
-            disabled={!title.trim() || isPending}
-            className="btn btn-primary btn-md flex-1"
-          >
-            <Save size={14} />
-            {isPending ? 'Saving...' : 'Save dork'}
+        <div style={{ display: 'flex', gap: '8px', marginTop: '20px' }}>
+          <button onClick={onClose} className="btn btn-secondary btn-md" style={{ flex: 1, justifyContent: 'center' }}>cancel</button>
+          <button onClick={handleSave} disabled={!title.trim()} className="btn btn-primary btn-md" style={{ flex: 1, justifyContent: 'center' }}>
+            <Save size={13} /> save dork
           </button>
         </div>
+
+        <p style={{ fontSize: '0.6rem', color: 'var(--text-disabled)', marginTop: '12px', textAlign: 'center', lineHeight: 1.5 }}>
+          saved to your browser only — never sent to our servers
+        </p>
       </div>
     </div>
   )

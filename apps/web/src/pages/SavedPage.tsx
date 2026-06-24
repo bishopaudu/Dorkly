@@ -1,44 +1,28 @@
 import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { Bookmark, Trash2, ExternalLink, Terminal, Copy, Search } from 'lucide-react'
-import ExportMenu from '@/components/ui/ExportMenu'
-import { api } from '@/lib/api'
+import { Bookmark, Trash2, ExternalLink, Terminal, Copy, Search, Trash } from 'lucide-react'
+import { useSavedDorks } from '@/hooks/useSavedDorks'
+import { useToast } from '@/hooks/useToast'
 import Badge from '@/components/ui/Badge'
 import EmptyState from '@/components/ui/EmptyState'
-import Skeleton from '@/components/ui/Skeleton'
 import Toast from '@/components/ui/Toast'
-import { useToast } from '@/hooks/useToast'
-import type { SavedDork } from '@dorkly/shared'
+import ExportMenu from '@/components/ui/ExportMenu'
+import type { LocalDork } from '@/hooks/useSavedDorks'
 
 export default function SavedPage() {
+  const { dorks, remove, clear } = useSavedDorks()
   const [search, setSearch]     = useState('')
-  const [selected, setSelected] = useState<SavedDork | null>(null)
+  const [selected, setSelected] = useState<LocalDork | null>(null)
+  const [confirmClear, setConfirmClear] = useState(false)
   const { toasts, toast, dismiss } = useToast()
-  const navigate  = useNavigate()
-  const qc        = useQueryClient()
-
-  const { data: dorks = [], isLoading } = useQuery({
-    queryKey: ['dorks'],
-    queryFn:  api.dorks.list,
-  })
-
-  const { mutate: deleteDork } = useMutation({
-    mutationFn: (id: string) => api.dorks.delete(id),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['dorks'] })
-      setSelected(null)
-      toast('Dork deleted')
-    },
-    onError: () => toast('Failed to delete', 'error'),
-  })
+  const navigate = useNavigate()
 
   const filtered = dorks.filter(d =>
     d.title.toLowerCase().includes(search.toLowerCase()) ||
     d.query.toLowerCase().includes(search.toLowerCase())
   )
 
-  const handleLoad = (d: SavedDork) => {
+  const handleLoad = (d: LocalDork) => {
     sessionStorage.setItem('dorkly_load_query', d.query)
     navigate('/')
   }
@@ -52,7 +36,20 @@ export default function SavedPage() {
     window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank', 'noopener')
   }
 
-  const fmt = (d: string | Date) =>
+  const handleDelete = (id: string) => {
+    remove(id)
+    if (selected?.id === id) setSelected(null)
+    toast('Dork deleted')
+  }
+
+  const handleClear = () => {
+    clear()
+    setSelected(null)
+    setConfirmClear(false)
+    toast('Library cleared')
+  }
+
+  const fmt = (d: string) =>
     new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 
   return (
@@ -63,23 +60,54 @@ export default function SavedPage() {
           <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
             SAVED DORKS
           </h2>
-          <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.62)', marginTop: '3px' }}>
-            {dorks.length} saved // personal dork library
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)', marginTop: '3px' }}>
+            {dorks.length} saved // stored locally in your browser — never sent to our servers
           </p>
         </div>
-        {dorks.length > 0 && (
-          <ExportMenu
-            items={dorks.map(d => ({ title: d.title, query: d.query, description: d.description, category: d.category }))}
-            onExported={() => toast('Export downloaded')}
-            onError={(msg) => toast(msg, 'error')}
-          />
-        )}
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {dorks.length > 0 && (
+            <>
+              <ExportMenu
+                items={dorks.map(d => ({ title: d.title, query: d.query, description: d.description, category: d.category }))}
+                onExported={() => toast('Export downloaded')}
+                onError={msg => toast(msg, 'error')}
+              />
+              {confirmClear ? (
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  <button className="btn btn-danger btn-md" onClick={handleClear}>confirm clear</button>
+                  <button className="btn btn-secondary btn-md" onClick={() => setConfirmClear(false)}>cancel</button>
+                </div>
+              ) : (
+                <button className="btn btn-danger btn-md" onClick={() => setConfirmClear(true)}>
+                  <Trash size={13} /> clear all
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Privacy notice */}
+      <div style={{
+        padding: '10px 14px',
+        border: '1px solid rgba(0,232,77,0.12)',
+        borderRadius: '2px',
+        background: 'rgba(0,232,77,0.03)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+      }}>
+        <span style={{ fontSize: '0.65rem', color: 'var(--text-tertiary)', lineHeight: 1.6 }}>
+          <span style={{ color: '#00e84d', fontWeight: 600 }}>// PRIVACY</span>
+          {' '}Your saved dorks live entirely in this browser's localStorage. Nothing is sent to our servers.
+          Clearing your browser data will remove them — use Export to keep a backup.
+        </span>
       </div>
 
       <div style={{ position: 'relative' }}>
         <Search size={14} style={{
           position: 'absolute', left: '12px', top: '50%',
-          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
+          transform: 'translateY(-50%)', color: 'var(--text-tertiary)',
           pointerEvents: 'none',
         }} />
         <input
@@ -91,27 +119,19 @@ export default function SavedPage() {
         />
       </div>
 
-      {isLoading ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-16" />)}
-        </div>
-      ) : dorks.length === 0 ? (
+      {dorks.length === 0 ? (
         <EmptyState
           icon={Bookmark}
           title="NO SAVED DORKS"
-          description="Save dorks from the builder or templates page to build your personal library."
+          description="Save dorks from the builder or templates page to build your personal library. Everything stays in your browser."
           action={
             <button className="btn btn-secondary btn-md" onClick={() => navigate('/templates')}>
-              <Terminal size={13} /> Browse templates
+              <Terminal size={13} /> browse templates
             </button>
           }
         />
       ) : filtered.length === 0 ? (
-        <EmptyState
-          icon={Search}
-          title="NO RESULTS"
-          description={`No saved dorks match "${search}"`}
-        />
+        <EmptyState icon={Search} title="NO RESULTS" description={`No saved dorks match "${search}"`} />
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 340px' : '1fr', gap: '12px', alignItems: 'start' }}>
 
@@ -124,7 +144,7 @@ export default function SavedPage() {
                 style={{
                   padding: '12px 16px',
                   cursor: 'pointer',
-                  borderColor: selected?.id === d.id ? 'rgba(0,232,77,0.68)' : undefined,
+                  borderColor: selected?.id === d.id ? 'var(--border-active)' : undefined,
                   background: selected?.id === d.id ? 'rgba(0,232,77,0.06)' : undefined,
                   boxShadow: selected?.id === d.id ? '0 0 16px rgba(0,232,77,0.15)' : undefined,
                   display: 'flex',
@@ -132,49 +152,28 @@ export default function SavedPage() {
                   gap: '12px',
                 }}
               >
-                <Bookmark size={13} style={{ color: 'rgba(0,232,77,0.48)', flexShrink: 0 }} />
+                <Bookmark size={13} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00e84d' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                       {d.title}
                     </span>
                     <Badge category={d.category} label={d.category} />
                   </div>
                   <code style={{
-                    fontSize: '0.65rem',
-                    color: 'rgba(0,232,77,0.62)',
+                    fontSize: '0.65rem', color: 'var(--text-tertiary)',
                     fontFamily: 'IBM Plex Mono, monospace',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: 'block',
+                    whiteSpace: 'nowrap', overflow: 'hidden',
+                    textOverflow: 'ellipsis', display: 'block',
                   }}>
                     {d.query}
                   </code>
                 </div>
                 <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}
-                     onClick={e => e.stopPropagation()}>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    title="Copy query"
-                    onClick={() => handleCopy(d.query)}
-                  >
-                    <Copy size={12} />
-                  </button>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    title="Search Google"
-                    onClick={() => handleGoogle(d.query)}
-                  >
-                    <ExternalLink size={12} />
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    title="Delete"
-                    onClick={() => deleteDork(d.id)}
-                  >
-                    <Trash2 size={12} />
-                  </button>
+                  onClick={e => e.stopPropagation()}>
+                  <button className="btn btn-ghost btn-sm" title="Copy" onClick={() => handleCopy(d.query)}><Copy size={12} /></button>
+                  <button className="btn btn-ghost btn-sm" title="Search Google" onClick={() => handleGoogle(d.query)}><ExternalLink size={12} /></button>
+                  <button className="btn btn-danger btn-sm" title="Delete" onClick={() => handleDelete(d.id)}><Trash2 size={12} /></button>
                 </div>
               </div>
             ))}
@@ -183,63 +182,39 @@ export default function SavedPage() {
           {selected && (
             <div className="card" style={{ padding: '20px', position: 'sticky', top: 0, animation: 'fadeIn 0.15s ease-out' }}>
               <p className="section-label" style={{ marginBottom: '12px' }}>// DETAILS</p>
-
-              <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#00e84d', marginBottom: '6px' }}>
-                {selected.title}
-              </p>
-
+              <p style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '6px' }}>{selected.title}</p>
               {selected.description && (
-                <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.5)', lineHeight: 1.6, marginBottom: '12px' }}>
-                  {selected.description}
-                </p>
+                <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>{selected.description}</p>
               )}
-
               <p className="section-label" style={{ marginBottom: '8px' }}>// QUERY</p>
               <div style={{
-                background: '#000',
-                border: '1px solid rgba(0,232,77,0.2)',
-                borderRadius: '2px',
-                padding: '10px 12px',
-                marginBottom: '16px',
-                fontFamily: 'IBM Plex Mono, monospace',
-                fontSize: '0.7rem',
-                color: '#00e84d',
-                wordBreak: 'break-all',
-                lineHeight: 1.6,
+                background: '#000', border: '1px solid var(--border-default)',
+                borderRadius: '2px', padding: '10px 12px', marginBottom: '16px',
+                fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.7rem',
+                color: 'var(--text-primary)', wordBreak: 'break-all', lineHeight: 1.6,
               }}>
-                <span style={{ color: 'rgba(0,232,77,0.72)' }}>$ </span>{selected.query}
+                <span style={{ color: 'var(--text-tertiary)' }}>$ </span>{selected.query}
               </div>
-
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
                 <Badge category={selected.category} label={selected.category} />
-                {(selected.tags as string[]).map((tag: string) => (
-                  <Badge key={tag} label={tag} variant="gray" />
-                ))}
+                {selected.tags.map(tag => <Badge key={tag} label={tag} variant="gray" />)}
               </div>
-
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <button className="btn btn-primary btn-md" style={{ width: '100%', justifyContent: 'center' }}
-                  onClick={() => handleLoad(selected)}>
-                  <Terminal size={13} /> Load into builder
+                <button className="btn btn-primary btn-md" style={{ width: '100%', justifyContent: 'center' }} onClick={() => handleLoad(selected)}>
+                  <Terminal size={13} /> load into builder
                 </button>
-                <button className="btn btn-secondary btn-md" style={{ width: '100%', justifyContent: 'center' }}
-                  onClick={() => handleGoogle(selected.query)}>
-                  <ExternalLink size={13} /> Search Google
+                <button className="btn btn-secondary btn-md" style={{ width: '100%', justifyContent: 'center' }} onClick={() => handleGoogle(selected.query)}>
+                  <ExternalLink size={13} /> search google
                 </button>
-                <button className="btn btn-secondary btn-md" style={{ width: '100%', justifyContent: 'center' }}
-                  onClick={() => handleCopy(selected.query)}>
-                  <Copy size={13} /> Copy query
+                <button className="btn btn-secondary btn-md" style={{ width: '100%', justifyContent: 'center' }} onClick={() => handleCopy(selected.query)}>
+                  <Copy size={13} /> copy query
                 </button>
-                <button className="btn btn-danger btn-md" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }}
-                  onClick={() => deleteDork(selected.id)}>
-                  <Trash2 size={13} /> Delete dork
+                <button className="btn btn-danger btn-md" style={{ width: '100%', justifyContent: 'center', marginTop: '4px' }} onClick={() => handleDelete(selected.id)}>
+                  <Trash2 size={13} /> delete
                 </button>
               </div>
-
-              <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(0,232,77,0.08)' }}>
-                <p style={{ fontSize: '0.6rem', color: 'rgba(0,232,77,0.48)' }}>
-                  SAVED {fmt(selected.createdAt)}
-                </p>
+              <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--border-default)' }}>
+                <p style={{ fontSize: '0.6rem', color: 'var(--text-tertiary)' }}>SAVED {fmt(selected.createdAt)}</p>
               </div>
             </div>
           )}

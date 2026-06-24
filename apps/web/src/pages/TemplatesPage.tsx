@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useSavedDorks } from '@/hooks/useSavedDorks'
 import { useNavigate } from 'react-router-dom'
 import { Search, Terminal, ExternalLink, BookmarkPlus, ChevronRight, Loader } from 'lucide-react'
 import { api } from '@/lib/api'
@@ -22,6 +23,7 @@ export default function TemplatesPage() {
   const { toasts, toast, dismiss } = useToast()
   const navigate = useNavigate()
   const qc = useQueryClient()
+  const { save: saveDorkLocal } = useSavedDorks()
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
@@ -38,20 +40,17 @@ export default function TemplatesPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['templates'] }),
   })
 
-  const { mutate: saveTemplate, isPending: saving } = useMutation({
-    mutationFn: (t: Template) => api.dorks.save({
+  const saveTemplate = (t: Template) => {
+    saveDorkLocal({
       title: t.title,
       query: t.query,
-      description: t.description,
+      description: t.description || '',
       category: t.category,
       tags: t.tags,
-    }),
-    onSuccess: () => {
-      toast('Template saved to library')
-      qc.invalidateQueries({ queryKey: ['dorks'] })
-    },
-    onError: () => toast('Failed to save template', 'error'),
-  })
+    })
+    toast('Template saved to library')
+  }
+  const saving = false
 
   const handleUseTemplate = (t: Template) => {
     trackUse(t.id)
