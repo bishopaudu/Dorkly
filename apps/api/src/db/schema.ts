@@ -8,6 +8,8 @@ export const templates = pgTable('templates', {
   category: text('category').notNull(),
   tags: text('tags').notNull().default('[]'),
   difficulty: text('difficulty').notNull().default('beginner'),
+  effectiveness: text('effectiveness').notNull().default('reliable'),
+  effectivenessNote: text('effectiveness_note').default(''),
   usageCount: integer('usage_count').notNull().default(0),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
@@ -29,6 +31,7 @@ export const ghdbEntries = pgTable('ghdb_entries', {
   category: text('category').notNull(),
   author: text('author').default(''),
   dateAdded: text('date_added').default(''),
+  effectiveness: text('effectiveness').notNull().default('unverified'),
   syncedAt: timestamp('synced_at').notNull().defaultNow(),
 })
 

@@ -42,3 +42,12 @@ export const DORK_OPERATORS: DorkOperator[] = [
   { operator: 'link:', label: 'Link', description: 'Find pages linking to a URL', example: 'link:example.com', placeholder: 'example.com' },
   { operator: 'related:', label: 'Related', description: 'Find sites similar to a URL', example: 'related:example.com', placeholder: 'example.com' },
 ]
+export type Effectiveness = 'reliable' | 'high-value' | 'noisy' | 'unreliable' | 'unverified'
+
+export const EFFECTIVENESS_META: Record<Effectiveness, { label: string; color: string; border: string; bg: string; tip: string }> = {
+  'reliable':    { label: 'RELIABLE',    color: '#00e84d', border: 'rgba(0,232,77,0.35)',   bg: 'rgba(0,232,77,0.08)',   tip: 'Consistently returns useful results' },
+  'high-value':  { label: 'HIGH VALUE',  color: '#00e5ff', border: 'rgba(0,229,255,0.35)',  bg: 'rgba(0,229,255,0.08)',  tip: 'Rare hit but critical when found' },
+  'noisy':       { label: 'NOISY',       color: '#ffb300', border: 'rgba(255,179,0,0.35)',  bg: 'rgba(255,179,0,0.08)',  tip: 'High false-positive rate — verify manually' },
+  'unreliable':  { label: 'UNRELIABLE',  color: '#ff5c5c', border: 'rgba(255,68,68,0.35)',  bg: 'rgba(255,68,68,0.08)',  tip: 'Google suppresses this pattern — low hit rate' },
+  'unverified':  { label: 'UNVERIFIED',  color: 'rgba(0,232,77,0.4)', border: 'rgba(0,232,77,0.15)', bg: 'rgba(0,232,77,0.04)', tip: 'Community submitted — not independently verified' },
+}

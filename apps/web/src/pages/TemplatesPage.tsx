@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Search, Terminal, ExternalLink, BookmarkPlus, ChevronRight, Loader } from 'lucide-react'
 import { api } from '@/lib/api'
 import Badge from '@/components/ui/Badge'
+import EffectivenessBadge from '@/components/ui/EffectivenessBadge'
 import EmptyState from '@/components/ui/EmptyState'
 import Skeleton from '@/components/ui/Skeleton'
 import Toast from '@/components/ui/Toast'
@@ -170,6 +171,7 @@ export default function TemplatesPage() {
                     </span>
                     <Badge difficulty={t.difficulty} label={t.difficulty} />
                     <Badge category={t.category} label={t.category} />
+                    {t.effectiveness && <EffectivenessBadge value={t.effectiveness as any} />}
                   </div>
                   <code style={{
                     fontSize: '0.65rem',
