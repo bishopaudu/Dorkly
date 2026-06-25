@@ -13,6 +13,10 @@ export interface ScanCategory  { id: string; label: string; description: string;
 export interface ScanResult    { domain: string; categories: ScanCategory[]; total: number }
 export interface GithubResult  { query: string; categories: ScanCategory[]; total: number }
 
+export interface CrtDork { title: string; query: string }
+export interface CrtSubdomain { subdomain: string; dorks: CrtDork[] }
+export interface CrtResult { domain: string; subdomainCount: number; subdomains: string[]; dorks: CrtSubdomain[]; truncated: boolean }
+
 export interface GhdbEntry  { id: string; query: string; category: string; author: string; dateAdded: string }
 export interface SyncMeta   { id: string; lastSyncedAt: string; entryCount: number; sourceUrl: string }
 
@@ -32,6 +36,10 @@ export const api = {
       http.post<{ data: SavedDork }>('/dorks', payload).then(r => r.data.data),
     delete: (id: string) =>
       http.delete(`/dorks/${id}`),
+  },
+  crtsh: {
+    lookup: (domain: string) =>
+      http.post<{ data: CrtResult }>('/crtsh/lookup', { domain }).then(r => r.data.data),
   },
   scanner: {
     scan: (domain: string) =>

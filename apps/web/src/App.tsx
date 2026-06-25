@@ -7,6 +7,7 @@ import ScannerPage from '@/pages/ScannerPage'
 import GithubPage from '@/pages/GithubPage'
 import GhdbPage from '@/pages/GhdbPage'
 import HelpPage from '@/pages/HelpPage'
+import CrtshPage from '@/pages/CrtshPage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="scanner" element={<ScannerPage />} />
         <Route path="github" element={<GithubPage />} />
         <Route path="ghdb" element={<GhdbPage />} />
+        <Route path="crtsh" element={<CrtshPage />} />
         <Route path="help" element={<HelpPage />} />
       </Route>
     </Routes>

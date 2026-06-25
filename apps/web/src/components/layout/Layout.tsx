@@ -1,8 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
+import CommandPalette from '@/components/ui/CommandPalette'
+import { useCommandPalette } from '@/hooks/useCommandPalette'
 
 export default function Layout() {
+  const { open, close } = useCommandPalette()
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
@@ -12,6 +16,7 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+      <CommandPalette open={open} onClose={close} />
     </div>
   )
 }

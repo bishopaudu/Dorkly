@@ -9,6 +9,7 @@ import { scannerRouter } from './routes/scanner'
 import { githubRouter } from './routes/github'
 import { ghdbRouter } from './routes/ghdb'
 import { exportRouter } from './routes/export'
+import { crtshRouter } from './routes/crtsh'
 import { generalLimiter, scanLimiter, syncLimiter, exportLimiter } from './middleware/rateLimit'
 
 dotenv.config()
@@ -30,5 +31,6 @@ app.use('/api/github', scanLimiter, githubRouter)
 app.use('/api/ghdb/sync', syncLimiter)
 app.use('/api/ghdb', ghdbRouter)
 app.use('/api/export', exportLimiter, exportRouter)
+app.use('/api/crtsh', scanLimiter, crtshRouter)
 
 app.listen(PORT, () => console.log(`Dorkly API running on http://localhost:${PORT}`))
