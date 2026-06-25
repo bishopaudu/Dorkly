@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Code2, ExternalLink, Copy, BookmarkPlus, Terminal, ChevronDown, ChevronRight, Loader, KeyRound } from 'lucide-react'
 import { api, type GithubResult, type ScanDork, type ScanCategory } from '@/lib/api'
 import EmptyState from '@/components/ui/EmptyState'
+import PivotLinks from '@/components/dork/PivotLinks'
 import Toast from '@/components/ui/Toast'
 import { useToast } from '@/hooks/useToast'
 
@@ -196,7 +197,8 @@ export default function GithubPage() {
                           {dork.query}
                         </code>
                       </div>
-                      <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end', flexShrink: 0 }}>
+                        <PivotLinks query={dork.query} compact />
                         <button className="btn btn-ghost btn-sm" title="Load into builder" onClick={() => handleLoad(dork.query)}>
                           <Terminal size={12} />
                         </button>

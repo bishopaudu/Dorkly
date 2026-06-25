@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PivotLinks from './PivotLinks'
 import { Copy, ExternalLink, Globe, Trash2, ChevronDown } from 'lucide-react'
 import { clsx } from 'clsx'
 
@@ -75,6 +76,13 @@ export default function QueryPreview({ query, onCopy, onClear }: Props) {
           <ExternalLink size={13} /> search google
         </button>
       </div>
+
+      {/* Pivot links */}
+      {!empty && (
+        <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid var(--border-default)' }}>
+          <PivotLinks query={query} />
+        </div>
+      )}
 
       {/* Engine picker */}
       <div>

@@ -7,6 +7,7 @@ import Badge from '@/components/ui/Badge'
 import EmptyState from '@/components/ui/EmptyState'
 import Toast from '@/components/ui/Toast'
 import ExportMenu from '@/components/ui/ExportMenu'
+import PivotLinks from '@/components/dork/PivotLinks'
 import type { LocalDork } from '@/hooks/useSavedDorks'
 
 export default function SavedPage() {
@@ -213,7 +214,11 @@ export default function SavedPage() {
                   <Trash2 size={13} /> delete
                 </button>
               </div>
-              <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--border-default)' }}>
+              <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border-default)', marginBottom: '8px' }}>
+                <p className="section-label" style={{ marginBottom: '8px' }}>// PIVOT TO</p>
+                <PivotLinks query={selected.query} compact />
+              </div>
+              <div style={{ paddingTop: '12px', borderTop: '1px solid var(--border-default)' }}>
                 <p style={{ fontSize: '0.6rem', color: 'var(--text-tertiary)' }}>SAVED {fmt(selected.createdAt)}</p>
               </div>
             </div>
