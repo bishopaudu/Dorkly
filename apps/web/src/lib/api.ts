@@ -1,7 +1,8 @@
 import axios from 'axios'
 import type { Template, SavedDork } from '@dorkly/shared'
 
-const http = axios.create({ baseURL: '/api', timeout: 30000 })
+const BASE = import.meta.env.VITE_API_URL || ''
+const http = axios.create({ baseURL: `${BASE}/api`, timeout: 30000 })
 
 http.interceptors.response.use(
   r => r,
