@@ -85,7 +85,7 @@ export default function ScannerPage() {
           <div style={{ position: 'relative', flex: 1 }}>
             <Globe size={14} style={{
               position: 'absolute', left: '12px', top: '50%',
-              transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
+              transform: 'translateY(-50%)', color: 'var(--text-primary)',
               pointerEvents: 'none',
             }} />
             <input
@@ -174,7 +174,7 @@ export default function ScannerPage() {
             { label: 'DORKS',      value: result.total },
           ].map(({ label, value }) => (
             <div key={label}>
-              <p style={{ fontSize: '0.55rem', color: 'rgba(0,232,77,0.72)', letterSpacing: '0.12em', marginBottom: '2px' }}>{label}</p>
+              <p style={{ fontSize: '0.55rem', color: 'var(--text-primary)', letterSpacing: '0.12em', marginBottom: '2px' }}>{label}</p>
               <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#00e84d', fontFamily: 'IBM Plex Mono, monospace' }}>{value}</p>
             </div>
           ))}
@@ -207,7 +207,7 @@ export default function ScannerPage() {
                   <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00e84d', letterSpacing: '0.05em' }}>
                     {cat.label.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: '0.65rem', color: 'rgba(0,232,77,0.72)', marginLeft: '10px' }}>
+                  <span style={{ fontSize: '0.65rem', color: 'var(--text-primary)', marginLeft: '10px' }}>
                     // {cat.description}
                   </span>
                 </div>
@@ -236,7 +236,7 @@ export default function ScannerPage() {
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontSize: '0.7rem', fontWeight: 500, color: 'rgba(0,232,77,0.85)', marginBottom: '3px' }}>
+                        <p style={{ fontSize: '0.7rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '3px' }}>
                           {dork.title}
                         </p>
                         <code style={{

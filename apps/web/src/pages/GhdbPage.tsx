@@ -132,13 +132,13 @@ export default function GhdbPage() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Database size={13} style={{ color: '#00e84d' }} />
-            <span style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.78)' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)' }}>
               {status.entryCount.toLocaleString()} entries
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Clock size={13} style={{ color: 'rgba(0,232,77,0.62)' }} />
-            <span style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.78)' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)' }}>
               last synced {fmtSyncTime(status.lastSyncedAt)}
             </span>
           </div>
@@ -167,7 +167,7 @@ export default function GhdbPage() {
           <div style={{ position: 'relative' }}>
             <Search size={14} style={{
               position: 'absolute', left: '12px', top: '50%',
-              transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
+              transform: 'translateY(-50%)', color: 'var(--text-primary)',
               pointerEvents: 'none',
             }} />
             <input
@@ -240,7 +240,7 @@ export default function GhdbPage() {
                     </div>
                     <code style={{
                       fontSize: '0.7rem',
-                      color: 'rgba(0,232,77,0.85)',
+                      color: 'var(--text-primary)',
                       fontFamily: 'IBM Plex Mono, monospace',
                       display: 'block',
                       wordBreak: 'break-all',

@@ -23,8 +23,8 @@ export default function Topbar() {
       <span className="text-phosphor-500 text-xs font-mono mr-4">{page.cmd}</span>
       <div className="flex-1" />
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '12px' }}>
-        <kbd style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.58rem', color: 'rgba(0,232,77,0.35)', border: '1px solid rgba(0,232,77,0.15)', borderRadius: '2px', padding: '2px 6px', background: 'transparent' }}>⌘K</kbd>
-        <span style={{ fontSize: '0.58rem', color: 'rgba(0,232,77,0.25)' }}>command palette</span>
+        <kbd style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.58rem', color: 'var(--text-tertiary)', border: '1px solid rgba(0,232,77,0.15)', borderRadius: '2px', padding: '2px 6px', background: 'transparent' }}>⌘K</kbd>
+        <span style={{ fontSize: '0.58rem', color: 'var(--text-disabled)' }}>command palette</span>
       </div>
       <div className="flex items-center gap-3">
         <span className="section-label">{page.title}</span>

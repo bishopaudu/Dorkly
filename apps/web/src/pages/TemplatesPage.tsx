@@ -82,7 +82,7 @@ export default function TemplatesPage() {
       <div style={{ position: 'relative' }}>
         <Search size={14} style={{
           position: 'absolute', left: '12px', top: '50%',
-          transform: 'translateY(-50%)', color: 'rgba(0,232,77,0.72)',
+          transform: 'translateY(-50%)', color: 'var(--text-primary)',
           pointerEvents: 'none',
         }} />
         <input
@@ -202,7 +202,7 @@ export default function TemplatesPage() {
             <p style={{ fontSize: '0.8rem', fontWeight: 600, color: '#00e84d', marginBottom: '6px' }}>
               {selected.title}
             </p>
-            <p style={{ fontSize: '0.7rem', color: 'rgba(0,232,77,0.5)', lineHeight: 1.6, marginBottom: '16px' }}>
+            <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
               {selected.description}
             </p>
 
@@ -219,7 +219,7 @@ export default function TemplatesPage() {
               wordBreak: 'break-all',
               lineHeight: 1.6,
             }}>
-              <span style={{ color: 'rgba(0,232,77,0.72)' }}>$ </span>{selected.query}
+              <span style={{ color: 'var(--text-primary)' }}>$ </span>{selected.query}
             </div>
 
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>

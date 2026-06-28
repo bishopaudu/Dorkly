@@ -74,7 +74,7 @@ export default function ExportMenu({ items, label = 'Export', onExported, onErro
                 padding: '9px 12px',
                 background: 'transparent',
                 border: 'none',
-                color: 'rgba(0,232,77,0.85)',
+                color: 'var(--text-primary)',
                 fontSize: '0.7rem',
                 fontFamily: 'IBM Plex Mono, monospace',
                 cursor: busy ? 'wait' : 'pointer',
