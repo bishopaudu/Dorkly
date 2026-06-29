@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { Shield, Globe, ExternalLink, Copy, Terminal, BookmarkPlus, ChevronDown, ChevronRight, Loader } from 'lucide-react'
 import { api, type CrtResult, type CrtSubdomain } from '@/lib/api'

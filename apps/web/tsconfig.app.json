@@ -6,6 +6,10 @@
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@dorkly/shared": ["../../packages/shared/src/index.ts"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

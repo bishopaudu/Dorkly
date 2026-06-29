@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dorkly/shared": "*",
     "@tanstack/react-query": "^5.101.0",
     "axios": "^1.18.0",
     "clsx": "^2.1.1",

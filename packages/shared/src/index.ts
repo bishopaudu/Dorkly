@@ -9,6 +9,8 @@ export interface Template {
   category: string
   tags: string[]
   difficulty: Difficulty
+  effectiveness: Effectiveness
+  effectivenessNote?: string | null
   usageCount: number
   createdAt: Date
 }

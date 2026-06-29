@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import PivotLinks from './PivotLinks'
 import { Copy, ExternalLink, Globe, Trash2, ChevronDown } from 'lucide-react'
-import { clsx } from 'clsx'
 
 interface Props {
   query: string
