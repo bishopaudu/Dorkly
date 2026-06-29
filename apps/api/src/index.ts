@@ -17,13 +17,28 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3001
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:4173',
+].filter(Boolean) as string[]
+
 app.use(helmet())
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }))
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+      callback(null, true)
+    } else {
+      callback(new Error(`CORS: origin ${origin} not allowed`))
+    }
+  },
+  credentials: true,
+}))
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(generalLimiter)
 
-app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'dorkly-api' }))
+app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'dorkly-api', env: process.env.NODE_ENV }))
 app.use('/api/dorks', dorksRouter)
 app.use('/api/templates', templatesRouter)
 app.use('/api/scanner', scanLimiter, scannerRouter)
@@ -33,4 +48,4 @@ app.use('/api/ghdb', ghdbRouter)
 app.use('/api/export', exportLimiter, exportRouter)
 app.use('/api/crtsh', scanLimiter, crtshRouter)
 
-app.listen(PORT, () => console.log(`Dorkly API running on http://localhost:${PORT}`))
+app.listen(PORT, () => console.log(`Dorkly API running on port ${PORT} [${process.env.NODE_ENV}]`))
