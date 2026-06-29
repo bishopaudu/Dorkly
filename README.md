@@ -2,7 +2,7 @@
 
 > A professional OSINT platform that makes Google dorking accessible to security researchers, journalists, and analysts — no syntax memorization required.
 
-**🌐 Live Demo:** https://dorkly.vercel.app
+**🌐 Live Demo:** [https://dorkly.vercel.app](https://dorkly-web.vercel.app/)
 
 ---
 
