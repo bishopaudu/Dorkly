@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { Terminal, LayoutTemplate, Bookmark, Crosshair, ScanSearch, HelpCircle, Code2, Database, Shield } from 'lucide-react'
+import { LayoutTemplate, Bookmark, Crosshair, ScanSearch, HelpCircle, Code2, Database, Shield } from 'lucide-react'
 import { clsx } from 'clsx'
+import Logo from '@/components/ui/Logo'
 
 const nav = [
   { to: '/',          icon: Crosshair,      label: 'builder',   prefix: '01' },
@@ -18,7 +19,7 @@ export default function Sidebar() {
     <aside className="w-56 shrink-0 flex flex-col border-r border-phosphor-400/10 bg-black/80 backdrop-blur-sm">
       <div className="px-4 py-5 border-b border-phosphor-400/10">
         <div className="flex items-center gap-2.5 mb-1">
-          <Terminal size={16} className="text-phosphor-400" />
+          <Logo size={18} />
           <span className="text-sm font-bold text-phosphor-400 tracking-widest uppercase">DORKLY</span>
         </div>
         <p className="text-2xs text-phosphor-700 tracking-widest pl-[24px]">v1.0.0 // OSINT PLATFORM</p>
